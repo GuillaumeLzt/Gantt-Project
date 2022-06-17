@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Simple Gantt</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			background: #ccc;
+		}
+		.container {
+			width: 80%;
+			margin: 0 auto;
+		}
+		/* custom class */
+		.gantt .bar-milestone .bar {
+			fill: rgb(3, 110, 31);
+		}
+	</style>
+	<link rel="stylesheet" href="frappe-gantt.css" />
+	<script src="frappe-gantt.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Interactive Gantt</h2>
+		<div class="gantt-target"></div>
+	</div>
+	<script>
+		var tasks = [
+			{
+				start: '2018-10-01',
+				end: '2018-10-08',
+				name: 'Tache 1',
+				id: "Task 0",
+				progress: 20
+			},
+			{
+				start: '2018-10-03',
+				end: '2018-11-06',
+				name: 'Tache 2',
+				id: "Task 1",
+				progress: 5,
+				dependencies: 'Task 0',
+			},
+			{
+				start: '2018-10-04',
+				end: '2018-10-08',
+				name: 'Tache 3',
+				id: "Task 2",
+				progress: 10,
+				dependencies: 'Task 1'
+			},
+			{
+				start: '2018-10-08',
+				end: '2018-10-09',
+				name: 'Tache 4',
+				id: "Task 3",
+				progress: 5,
+				dependencies: 'Task 2'
+			},
+			{
+				start: '2018-10-08',
+				end: '2018-10-10',
+				name: 'Tache 5',
+				id: "Task 4",
+				progress: 0,
+				dependencies: 'Task 2'
+			},
+			{
+				start: '2018-10-11',
+				end: '2018-10-11',
+				name: 'Tache 6',
+				id: "Task 5",
+				progress: 0,
+				dependencies: 'Task 4',
+				custom_class: 'bar-milestone'
+			},
+			{
+				start: '2018-08-05',
+				end: '2018-10-12',
+				name: 'Test Longue Tache',
+				id: "Task 6",
+				progress: 50
+			}
+		]
+		var gantt_chart = new Gantt(".gantt-target", tasks, {
+			on_click: function (task) {
+				console.log(task);
+			},
+			on_date_change: function(task, start, end) {
+				console.log(task, start, end);
+			},
+			on_progress_change: function(task, progress) {
+				console.log(task, progress);
+			},
+			on_view_change: function(mode) {
+				console.log(mode);
+			},
+            
+			view_mode: 'Month',
+			language: 'en'
+		});
+
+		
+		//console.log(gantt_chart);
+	</script>
+</body>
+</html>
